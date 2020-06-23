@@ -9,9 +9,6 @@ resource "kubernetes_persistent_volume_claim" "volume" {
     name = var.volume_name
     namespace  = var.namespace
   }
-  timeouts {
-    create = "60s"
-  }
   spec {
     access_modes = [ "ReadWriteOnce"]
     storage_class_name = "openebs-jiva-default"

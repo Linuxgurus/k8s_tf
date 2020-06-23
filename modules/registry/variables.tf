@@ -1,17 +1,17 @@
 
 variable "namespace" {
   type = string
-  default = "jenkins"
+  default = "registry"
 }
 
 variable "release_name" {
-  default = "jenkins"
+  default = "registry"
 
 }
 
 variable "volume_name" {
   type = string
-  default = "jenkins-claim"
+  default = "registry-claim"
 }
 
 variable "chart" {
