@@ -24,7 +24,6 @@ resource "helm_release" "release" {
   name  = var.release_name
   chart = "stable/jenkins"
   namespace = var.namespace
-  timeout = 60
 
   set {
     name  = "master.serviceType"

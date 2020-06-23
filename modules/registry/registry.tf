@@ -24,7 +24,6 @@ resource "helm_release" "release" {
   name  = var.release_name
   chart = var.chart
   namespace = var.namespace
-  timeout = 60
 
   set {
     name  = "service.type"
