@@ -14,23 +14,9 @@ resource "helm_release" "release" {
     name = "arpAddresses"
     value = "192.168.1.50-192.168.1.99"
   }
+  depends_on = [ kubernetes_config_map.metallb ]
 }
 
-resource "kubernetes_config_map" "metallb" {
-  metadata {
-    name = "metallb-config"
-    namespace = var.namespace
-  }
-  
-  data = {
-    config = yamlencode({
-      "address-pools": {
-        "name": "default",
-        "protocol" : "layer2",
-        "addresses": var.networks}
-      })
-  }
-}
 
 #resource "random_password" "password" {
   #  length = 16

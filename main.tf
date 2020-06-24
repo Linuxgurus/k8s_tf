@@ -12,6 +12,6 @@ module "registry" {
 module "metallb" {
   source = "./modules/metallb"
   namespace = "metallb"
-  networks = var.metal_networks
+  addresses = var.metal_networks
 }
 
