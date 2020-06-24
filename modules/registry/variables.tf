@@ -18,3 +18,19 @@ variable "chart" {
   type = string
   default = "stable/docker-registry"
 }
+
+variable "docker_user" {
+  type = string
+  default = "docker"
+}
+
+variable "docker_email" {
+  type = string
+  default = "docker@linuxguru.net"
+}
+
+variable "docker_registry" {
+  type = string
+  default = "registry:5000"
+}
+

@@ -39,7 +39,7 @@ resource "helm_release" "release" {
     name = "persistence.existingClaim"
     value = kubernetes_persistent_volume_claim.volume.metadata.0.name
   }
-  
+
   set {
     name = "persistence.storageClass"
     value = "openebs-jiva-default"
@@ -49,7 +49,7 @@ resource "helm_release" "release" {
     name = "persistence.existingClaim"
     value = kubernetes_persistent_volume_claim.volume.metadata.0.name
   }
-  
+
 
   set {
     name = "persistence.accessMode"
@@ -58,7 +58,7 @@ resource "helm_release" "release" {
 
   set {
     name = "secrets.htpasswd"
-    value = "docker:$2y$05$cChOfj1KYwQNVRojQRlawOmZKv7wqfrrE9keM2auvezqX7Hnvv/o6"
+    value = "docker:${bcrypt(random_password.password.result)}"
   }
 
 }
