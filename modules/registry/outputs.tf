@@ -4,6 +4,7 @@ data "kubernetes_service" "registry" {
     name = join("-", [ var.release_name, "docker-registry" ])
     namespace = var.namespace
   }
+  depends_on = [ helm_release.release ]
 }
 
 output "lb" {

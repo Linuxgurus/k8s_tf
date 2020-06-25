@@ -4,6 +4,12 @@ resource "kubernetes_namespace" "namespace" {
   }
 }
 
+resource "random_password" "password" {
+  length = 15 
+  special = true
+  override_special = "_%@"
+}
+
 resource "kubernetes_persistent_volume_claim" "volume" {
   metadata {
     name = var.volume_name
@@ -38,6 +44,11 @@ resource "helm_release" "release" {
   set {
     name = "persistence.accessMode"
     value = "ReadWriteOnce"
+  }
+
+  set {
+    name = "admin.masterPassword"
+    value = random_password.password.result
   }
 }
 

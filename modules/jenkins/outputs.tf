@@ -1,11 +1,15 @@
-data "kubernetes_service" "registry" {
+data "kubernetes_service" "jenkins" {
   metadata { 
-    name = "jenkins"
+    name = var.release_name
     namespace = var.namespace
   }
+  depends_on = [ helm_release.release ]
 }
 
-
 output "lb" {
-  value = data.kubernetes_service.registry.load_balancer_ingress.0.ip
+  value = data.kubernetes_service.jenkins.load_balancer_ingress.0.ip
+}
+
+output "password" {
+  value = random_password.password.result
 }
