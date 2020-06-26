@@ -12,6 +12,7 @@ spec:
     secretName: ${local.ca_name}
 EOT
 }
+
 resource "kubernetes_secret" "ca-key"  {
   type="kubernetes.io/tls"
   metadata {
@@ -25,5 +26,6 @@ resource "kubernetes_secret" "ca-key"  {
 
 resource "k8s_manifest" "issuer" {
   content = local.issuer
+  depends_on = [ helm_release.release ]
 }
 

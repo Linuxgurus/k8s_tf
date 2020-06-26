@@ -6,15 +6,8 @@ data "kubernetes_service" "jenkins" {
   depends_on = [ helm_release.release ]
 }
 
-data "kubernetes_secret" "secret" {
-  metadata { 
-    name = var.release_name
-    namespace = var.namespace
-  }
-}
-
 output "password" {
-  value = data.kubernetes_secret.secret.data["jenkins-admin-password"]
+  value = random_password.password.result
 }
 
 output "lb" {

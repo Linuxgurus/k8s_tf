@@ -4,6 +4,11 @@ resource "kubernetes_namespace" "namespace" {
   }
 }
 
+resource "random_password" "password" {
+  length = 15
+  special = true
+  override_special = "_%@"
+}
 
 resource "kubernetes_persistent_volume_claim" "volume" {
   metadata {
@@ -44,6 +49,11 @@ resource "helm_release" "release" {
   set {
     name = "master.runAsUser"
     value = 0
+  }
+
+  set {
+    name = "master.adminPassword"
+    value = random_password.password.result
   }
 
   set {

@@ -1,4 +1,9 @@
 
+module "openebs" {
+  source = "./modules/openebs"
+  namespace = "openebs"
+}
+
 module "jenkins" {
   source = "./modules/jenkins"
   namespace = "jenkins"
