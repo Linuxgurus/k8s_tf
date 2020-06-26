@@ -7,7 +7,6 @@ resource "random_password" "password" {
 resource "kubernetes_secret" "image-puller" {
   type = "kubernetes.io/dockerconfigjson"
   metadata {
-    namespace = "kube-system"
     name = "registry-secret"
   }
 

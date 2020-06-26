@@ -15,3 +15,11 @@ module "metallb" {
   addresses = var.metal_networks
 }
 
+module "cert_manager" {
+  source = "./modules/cert_man"
+  namespace = "cert-manager"
+  ca_certfile = "~/.ssl/ca.crt"
+  ca_keyfile = "~/.ssl/ca.key"
+  name = "linuxguru"
+}
+
