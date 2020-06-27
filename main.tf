@@ -46,6 +46,7 @@ module "registry" {
   source = "./modules/registry"
   namespace = "registry"
   vpn_domains = [
+    "registry",
     "registry.linuxguru.net",
     "registry.int.linuxguru.net"
   ]

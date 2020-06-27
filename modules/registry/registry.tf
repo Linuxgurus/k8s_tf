@@ -21,6 +21,11 @@ resource "helm_release" "release" {
   }
 
   set {
+    name = "tlsSecretName"
+    value = module.ssl_cert.secret
+  }
+
+  set {
     name = "persistence.existingClaim"
     value = kubernetes_persistent_volume_claim.volume.metadata.0.name
   }
