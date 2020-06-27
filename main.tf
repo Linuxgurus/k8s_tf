@@ -26,9 +26,13 @@ module "cert_manager" {
 }
 
 module "openvpn" {
+  source = "./modules/openvpn"
   namespace = "openvpn"
   name = "linuxguru"
-  source = "./modules/openvpn"
+  vpn_domains = [
+    "vpn.linuxguru.net",
+    "int.vpn.linuxguru.net"
+  ]
   ca_certfile = "~/.ssl/ca.crt"
   ca_keyfile = "~/.ssl/ca.key"
 }

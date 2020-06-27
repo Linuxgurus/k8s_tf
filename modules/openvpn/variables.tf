@@ -16,9 +16,5 @@ variable name {
 
 variable vpn_domains {
   type = list
-  default = [
-    "vpn.linuxguru.net",
-    "vpn.int.linuxguru.net"
-  ]
 }
 
