@@ -1,5 +1,5 @@
 locals {
-  issuer_name = join("-",[var.name,"ca"])
+  issuer_name = var.name
   ca_name = join("-",[var.name,"ca"])
   issuer = <<EOT
 
@@ -16,6 +16,7 @@ EOT
 resource "kubernetes_secret" "ca-key"  {
   type="kubernetes.io/tls"
   metadata {
+    namespace = var.namespace
     name = local.ca_name
   }
   data = {
@@ -25,7 +26,7 @@ resource "kubernetes_secret" "ca-key"  {
 }
 
 resource "k8s_manifest" "issuer" {
+  namespace = var.namespace
   content = local.issuer
-  depends_on = [ helm_release.release ]
 }
 

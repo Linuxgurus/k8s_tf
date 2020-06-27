@@ -23,8 +23,12 @@ module "metallb" {
 module "cert_manager" {
   source = "./modules/cert_man"
   namespace = "cert-manager"
-  ca_certfile = "~/.ssl/ca.crt"
-  ca_keyfile = "~/.ssl/ca.key"
-  name = "linuxguru"
 }
 
+module "openvpn" {
+  namespace = "openvpn"
+  name = "linuxguru"
+  source = "./modules/openvpn"
+  ca_certfile = "~/.ssl/ca.crt"
+  ca_keyfile = "~/.ssl/ca.key"
+}
