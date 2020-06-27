@@ -4,8 +4,8 @@ metadata:
   name: ${name}
 spec:
   secretName: ${name}
-  duration: 21600h 
-  renewBefore: 360h 
+  duration: 2160h 
+  renewBefore: 720h
   keyAlgorithm: rsa
   keyEncoding: pkcs1
   usages:
