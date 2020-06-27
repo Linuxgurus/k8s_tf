@@ -34,3 +34,16 @@ variable "docker_registry" {
   default = "registry:5000"
 }
 
+
+variable ca_certfile {
+  type = string
+}
+
+variable ca_keyfile {
+  type = string
+}
+
+variable vpn_domains {
+  type = list
+}
+
