@@ -42,6 +42,13 @@ module "openvpn" {
   registry_auth = module.registry.auth
 }
 
+# Monitoring
+module "prometheus" {
+  source = "./modules/prometheus"
+  namespace = "monitoring"
+  name = "prometheus"
+}
+
 # A docker registry
 module "registry" {
   source = "./modules/registry"
