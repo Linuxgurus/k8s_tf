@@ -1,3 +1,9 @@
+locals {
+  labels = {
+    name = var.name
+  }
+}
+
 resource "kubernetes_namespace" "namespace" {
   metadata {
     name = var.namespace
@@ -7,6 +13,7 @@ resource "kubernetes_namespace" "namespace" {
 
 resource "kubernetes_config_map" "config" {
   metadata {
+    namespace = var.namespace
     name = var.name
   }
   data = {
@@ -23,15 +30,15 @@ resource "kubernetes_deployment" "deployment" {
   metadata {
     name = var.name
     namespace = var.namespace
+    labels = local.labels
   }
   spec {
     replicas = 1
+
+    selector { match_labels = local.labels }
+
     template {
-      metadata {
-        labels = {
-          app = var.name
-        }
-      }
+      metadata { labels = local.labels }
       spec {
         container {
           name = var.name
@@ -42,14 +49,12 @@ resource "kubernetes_deployment" "deployment" {
             }
           }
           port {
-            name = var.name
             container_port = 1194
-            protocol = "TCP"
           }
 
           env_from {
             config_map_ref {
-               name = kubernetes_config_map.config.metadata.0.name
+              name = kubernetes_config_map.config.metadata.0.name
             }
 
           }
@@ -71,17 +76,15 @@ resource "kubernetes_deployment" "deployment" {
 
 resource "kubernetes_service" "service" {
   metadata {
-    namespace = var.name
+    namespace = var.namespace
     name = var.name
   }
   spec {
-    selector = {
-      app = var.name
-    }
+    type = "LoadBalancer"
+    selector = local.labels
     port {
       port        = 1194
-      target_port = 443
+      target_port = 1194
     }
-    type = "LoadBalancer"
   }
 }
