@@ -15,3 +15,7 @@ output "password" {
   value = random_password.password.result
 }
 
+output "auth" {
+  value = local.docker_config_json
+}
+

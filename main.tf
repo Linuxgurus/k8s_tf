@@ -39,6 +39,7 @@ module "openvpn" {
   ]
   ca_certfile = "~/.ssl/ca.crt"
   ca_keyfile = "~/.ssl/ca.key"
+  registry_auth = module.registry.auth
 }
 
 # A docker registry

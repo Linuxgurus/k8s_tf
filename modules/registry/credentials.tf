@@ -4,14 +4,9 @@ resource "random_password" "password" {
   override_special = "_%@"
 }
 
-resource "kubernetes_secret" "image-puller" {
-  type = "kubernetes.io/dockerconfigjson"
-  metadata {
-    name = "registry-secret"
-  }
 
-  data = {
-    ".dockerconfigjson" = jsonencode({
+locals {
+  docker_config_json  = jsonencode({
       "auths" : {
         (var.docker_registry) : {
           email    = var.docker_email
@@ -21,6 +16,16 @@ resource "kubernetes_secret" "image-puller" {
         }
       }
     })
+}
+
+resource "kubernetes_secret" "image-puller" {
+  type = "kubernetes.io/dockerconfigjson"
+  metadata {
+    name = "registry-secret"
+  }
+
+  data = {
+    ".dockerconfigjson" = local.docker_config_json
   }
 }
 

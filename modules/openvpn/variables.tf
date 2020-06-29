@@ -18,3 +18,7 @@ variable vpn_domains {
   type = list
 }
 
+variable registry_auth {
+  type = string
+}
+
