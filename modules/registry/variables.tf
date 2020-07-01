@@ -1,49 +1,17 @@
 
-variable "namespace" {
-  type = string
-  default = "registry"
-}
+variable "namespace" { }
+variable domains     {}
+variable cert_issuer {}
 
-variable "release_name" {
-  default = "registry"
+variable "release_name" { default = "registry" }
 
-}
+variable "volume_name" { default = "registry-claim" }
 
-variable "volume_name" {
-  type = string
-  default = "registry-claim"
-}
+variable "chart" { default = "stable/docker-registry" }
 
-variable "chart" {
-  type = string
-  default = "stable/docker-registry"
-}
+variable "docker_user" { default = "docker" }
 
-variable "docker_user" {
-  type = string
-  default = "docker"
-}
+variable "docker_email" { default = "docker@linuxguru.net" }
 
-variable "docker_email" {
-  type = string
-  default = "docker@linuxguru.net"
-}
-
-variable "docker_registry" {
-  type = string
-  default = "registry:5000"
-}
-
-
-variable ca_certfile {
-  type = string
-}
-
-variable ca_keyfile {
-  type = string
-}
-
-variable vpn_domains {
-  type = list
-}
+variable "docker_registry" { default = "registry:5000" }
 

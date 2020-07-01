@@ -1,14 +1,6 @@
 
-variable name {
-  type = string
-}
-
+variable name { }
 variable namespace {}
+variable issuer { }
 
-variable issuer {
-  type = string
-}
-
-variable cert_domains {
-  type = list
-}
+variable cert_domains { type = list }

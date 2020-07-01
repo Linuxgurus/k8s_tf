@@ -19,20 +19,23 @@ using_the_prototype.md for details there
 
 ## Dependencies
 
-1. The terraform-provider-k8s provider, for apply k8s manifests in K8s ``` #
+1. The terraform-provider-k8s provider, for apply k8s manifests in K8s
+``` #
    Build custom k8s provider git clone
-   https://github.com/banzaicloud/terraform-provider-k8s.git cd
-   terraform-provider-k8s go build go install
+   https://github.com/banzaicloud/terraform-provider-k8s.git
+   cd terraform-provider-k8s go build go install
 
-# Add this  to ~/.terraformrc providers { k8s =
-"/$GOPATH/bin/terraform-provider-k8s" }
-
+   # Add this  to ~/.terraformrc providers:
+   { k8s = "/$GOPATH/bin/terraform-provider-k8s" }
 ```
 
-2. You need to make a certficates and place them in ~/.ssh : ``` export
-   MYCN="linuxguru.net" mkdir ~/.ssl && cd ~/.ssl openssl genrsa -out ca.key
-   2048 openssl req -x509 -new -nodes -key ca.key -subj "/CN=$MYCN" -days 820
-   -reqexts v3_req -extensions v3_ca -out ca.crt ```
+2. You need to make a certficate and place them in ~/.ssh :
+```
+    export MYCN="linuxguru.net"
+    mkdir ~/.ssl && cd ~/.ssl openssl genrsa -out ca.key 2048
+    openssl req -x509 -new -nodes -key ca.key -subj "/CN=$MYCN" \
+       -days 820 -reqexts v3_req -extensions v3_ca -out ca.crt
+```
 
 3. Do the terraform
 ```

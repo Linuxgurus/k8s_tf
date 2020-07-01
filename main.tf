@@ -26,6 +26,9 @@ module "metallb" {
 module "cert_manager" {
   source = "./modules/cert_man"
   namespace = "cert-manager"
+  issuer_name = "linuxguru-ca"
+  ca_certfile = "~/.ssl/ca.crt"
+  ca_keyfile = "~/.ssl/ca.key"
 }
 
 # An openvpn server (Not working yet)
@@ -33,12 +36,8 @@ module "openvpn" {
   source = "./modules/openvpn"
   namespace = "openvpn"
   name = "linuxguru"
-  vpn_domains = [
-    "vpn.linuxguru.net",
-    "vpn.int.linuxguru.net"
-  ]
-  ca_certfile = "~/.ssl/ca.crt"
-  ca_keyfile = "~/.ssl/ca.key"
+  cert_issuer = module.cert_manager.issuer
+  vpn_domains = [ "vpn.linuxguru.net" ]
   registry_auth = module.registry.auth
 }
 
@@ -53,11 +52,18 @@ module "prometheus" {
 module "registry" {
   source = "./modules/registry"
   namespace = "registry"
-  vpn_domains = [
+  cert_issuer = module.cert_manager.issuer
+  domains = [
     "registry",
     "registry.linuxguru.net",
     "registry.int.linuxguru.net"
   ]
-  ca_certfile = "~/.ssl/ca.crt"
-  ca_keyfile = "~/.ssl/ca.key"
 }
+
+module "chef" {
+  source = "./modules/chef"
+  namespace = "chef"
+  cert_issuer = module.cert_manager.issuer
+  domains = [ "chef", "chef.int.linuxguru.net" ]
+}
+
