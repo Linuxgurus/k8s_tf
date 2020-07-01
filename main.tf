@@ -63,6 +63,7 @@ module "registry" {
 module "chef" {
   source = "./modules/chef"
   namespace = "chef"
+  name = "chef"
   cert_issuer = module.cert_manager.issuer
   domains = [ "chef", "chef.int.linuxguru.net" ]
 }

@@ -1,12 +1,13 @@
 resource "kubernetes_role" "knife" {
   metadata {
-    name = "chef-knife"
+    namespace = var.namespace
+    name = var.name
   }
 
   rule {
     api_groups     = [""]
     resources      = ["secrets"]
-    resource_names = ["chef_knife"]
+    resource_names = ["knife"]
     verbs          = ["create", "update", "patch"]
   }
 }
