@@ -1,0 +1,19 @@
+
+resource "random_password" "db_pass" {
+  length = 15
+  special = true
+  override_special = "_%@"
+}
+
+
+
+resource "kubernetes_config_map" "config" {
+  metadata {
+    namespace = var.namespace
+    name = var.name
+  }
+  data = {
+    POSTGRES_PASSWORD = random_password.password.result
+    POSTGRES_USER = "chef"
+  }
+}

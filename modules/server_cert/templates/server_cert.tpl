@@ -18,5 +18,5 @@ spec:
 %{ endfor ~}
   issuerRef:
     name: ${issuer}
-    kind: Issuer
+    kind: ClusterIssuer
 

@@ -11,6 +11,11 @@ resource "helm_release" "release" {
   namespace = var.namespace
 
   set {
+    name = "updateStrategy.type"
+    value = "Recreate"
+  }
+
+  set {
     name  = "service.type"
     value = "LoadBalancer"
   }

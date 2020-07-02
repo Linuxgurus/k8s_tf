@@ -3,7 +3,7 @@ locals {
   issuer = <<EOT
 
 apiVersion: cert-manager.io/v1alpha2
-kind: Issuer
+kind: ClusterIssuer
 metadata:
   name: ${var.issuer_name}
 spec:
