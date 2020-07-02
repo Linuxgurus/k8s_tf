@@ -10,7 +10,7 @@ locals {
 resource "kubernetes_deployment" "deployment" {
   metadata {
     name = local.name
-    namespace = local.namespace
+    namespace = var.namespace
     labels = local.labels
   }
   spec {
@@ -29,20 +29,20 @@ resource "kubernetes_deployment" "deployment" {
           }
 
           env_from {
-            config_map_ref {
-              name = kubernetes_config_map.config.metadata.0.name
+            secret_ref {
+              name = kubernetes_secret.chef.metadata.0.name
             }
 
           }
           volume_mount {
             name = "pgdata"
-            mount_path = "/var/lib/postgresql/data"
+            mount_path = "/var/lib/postgresql"
           }
         }
         volume {
           name = "pgdata"
-          secret {
-            secret_name = "server-cert"
+          persistent_volume_claim  {
+            claim_name = local.name
           }
         }
       }
@@ -52,7 +52,7 @@ resource "kubernetes_deployment" "deployment" {
 
 resource "kubernetes_service" "postgres" {
   metadata {
-    namespace = local.namespace
+    namespace = var.namespace
     name = local.name
   }
   spec {
@@ -66,7 +66,7 @@ resource "kubernetes_service" "postgres" {
 
 resource "kubernetes_persistent_volume_claim" "database" {
   metadata {
-    name = var.volume_name
+    name = local.name
     namespace  = var.namespace
   }
   spec {

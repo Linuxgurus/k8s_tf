@@ -1,14 +1,15 @@
-resource "kubernetes_role" "knife" {
-  metadata {
-    namespace = var.namespace
-    name = var.name
-  }
+resource "random_password" "db_pass" {
+    length = 16
+}
 
-  rule {
-    api_groups     = [""]
-    resources      = ["secrets"]
-    resource_names = ["knife"]
-    verbs          = ["create", "update", "patch"]
+resource "kubernetes_secret" "chef"  {
+  metadata {
+    name = "chef"
+    namespace = var.namespace
+  }
+  data = {
+    POSTGRES_USER = "chef"
+    POSTGRES_PASSWORD = random_password.db_pass.result
   }
 }
 

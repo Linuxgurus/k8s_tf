@@ -53,18 +53,13 @@ module "registry" {
   source = "./modules/registry"
   namespace = "registry"
   cert_issuer = module.cert_manager.issuer
-  domains = [
-    "registry",
-    "registry.linuxguru.net",
-    "registry.int.linuxguru.net"
-  ]
+  domains = [ "registry", "registry.int.linuxguru.net" ]
 }
 
-#module "chef" {
-#  source = "./modules/chef"
-#  namespace = "chef"
-#  name = "chef"
-#  cert_issuer = module.cert_manager.issuer
-#  domains = [ "chef", "chef.int.linuxguru.net" ]
-#}
-#
+module "chef" {
+  source = "./modules/chef"
+  namespace = "chef"
+  name = "chef"
+  cert_issuer = module.cert_manager.issuer
+  domains = [ "chef", "chef.int.linuxguru.net" ]
+}
