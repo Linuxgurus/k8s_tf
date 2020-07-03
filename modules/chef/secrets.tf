@@ -1,5 +1,7 @@
 resource "random_password" "db_pass" {
-    length = 16
+  length = 15
+  special = true
+  override_special = "_%@"
 }
 
 resource "kubernetes_secret" "chef"  {

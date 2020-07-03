@@ -1,28 +1,27 @@
-
 locals {
   pg_port = 5432
-  name = "postgres"
-  labels = {
+  db_name = "postgres"
+  db_labels = {
     name = "postgres"
   }
 }
 
-resource "kubernetes_deployment" "deployment" {
+resource "kubernetes_deployment" "postgres" {
   metadata {
-    name = local.name
+    name = local.db_name
     namespace = var.namespace
-    labels = local.labels
+    labels = local.db_labels
   }
   spec {
     replicas = 1
 
-    selector { match_labels = local.labels }
+    selector { match_labels = local.db_labels }
 
     template {
-      metadata { labels = local.labels }
+      metadata { labels = local.db_labels }
       spec {
         container {
-          name = local.name
+          name = local.db_name
           image = "postgres"
           port {
             container_port = local.pg_port
@@ -42,7 +41,7 @@ resource "kubernetes_deployment" "deployment" {
         volume {
           name = "pgdata"
           persistent_volume_claim  {
-            claim_name = local.name
+            claim_name = local.db_name
           }
         }
       }
@@ -53,10 +52,10 @@ resource "kubernetes_deployment" "deployment" {
 resource "kubernetes_service" "postgres" {
   metadata {
     namespace = var.namespace
-    name = local.name
+    name = local.db_name
   }
   spec {
-    selector = local.labels
+    selector = local.db_labels
     port {
       port        = local.pg_port
       target_port = local.pg_port
@@ -66,7 +65,7 @@ resource "kubernetes_service" "postgres" {
 
 resource "kubernetes_persistent_volume_claim" "database" {
   metadata {
-    name = local.name
+    name = local.db_name
     namespace  = var.namespace
   }
   spec {

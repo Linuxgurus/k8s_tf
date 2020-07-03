@@ -38,7 +38,6 @@ module "openvpn" {
   name = "linuxguru"
   cert_issuer = module.cert_manager.issuer
   vpn_domains = [ "vpn.linuxguru.net" ]
-  registry_auth = module.registry.auth
 }
 
 # Monitoring
@@ -62,4 +61,5 @@ module "chef" {
   name = "chef"
   cert_issuer = module.cert_manager.issuer
   domains = [ "chef", "chef.int.linuxguru.net" ]
+  registry_auth = module.registry.auth
 }
