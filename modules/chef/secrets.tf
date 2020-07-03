@@ -12,6 +12,7 @@ resource "kubernetes_secret" "chef"  {
   data = {
     POSTGRES_USER = "chef"
     POSTGRES_PASSWORD = random_password.db_pass.result
+    PGPASSWORD = random_password.db_pass.result
   }
 }
 
