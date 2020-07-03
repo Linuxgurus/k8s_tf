@@ -22,7 +22,7 @@ resource "kubernetes_deployment" "postgres" {
       spec {
         container {
           name = local.db_name
-          image = "postgres"
+          image = "postgres:9"
           port {
             container_port = local.pg_port
           }

@@ -7,7 +7,7 @@ resource "kubernetes_role" "knife" {
   rule {
     api_groups     = [""]
     resources      = ["secrets"]
-    resource_names = ["knife"]
+    resource_names = ["chef"]
     verbs          = ["create", "update", "patch"]
   }
 }

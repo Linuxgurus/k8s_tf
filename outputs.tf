@@ -25,3 +25,8 @@ output "grafana_admin" {
 output "grafana_pass" {
   value = module.prometheus.grafana-pass
 }
+
+output "chef_lb" {
+  value = module.chef.lb
+}
+

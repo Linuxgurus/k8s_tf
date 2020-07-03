@@ -30,9 +30,19 @@ resource "kubernetes_deployment" "chef" {
             }
 
           }
+          volume_mount {
+            name = "certs"
+            mount_path = "/var/local/certs"
+          }
         }
         image_pull_secrets {
           name = module.registry_access.registry_secret
+        }
+        volume {
+          name = "certs"
+          secret {
+            secret_name = "server-cert"
+          }
         }
       }
     }
