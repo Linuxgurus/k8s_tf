@@ -23,11 +23,15 @@ resource "kubernetes_deployment" "es" {
         automount_service_account_token = true
         container {
           name = local.es_name
-          image = "docker.elastic.co/elasticsearch/elasticsearch:7.8.0"
+          image = "docker.elastic.co/elasticsearch/elasticsearch:5.6.16"
           port { container_port = local.es_port }
           env {
             name = "discovery.type"
             value = "single-node"
+          }
+          env {
+            name = "xpack.security.enabled"
+            value = false
           }
         }
 

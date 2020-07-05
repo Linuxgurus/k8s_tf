@@ -26,6 +26,16 @@ resource "kubernetes_deployment" "chef" {
           image = "registry:5000/chef"
           port { container_port = local.chef_port }
 
+          env {
+            name = "NAMESPACE"
+            value = var.namespace
+          }
+
+          env {
+            name = "BACKEND_KEYS"
+            value = "chef-backend-secrets"
+          }
+
           env_from {
             secret_ref {
               name = kubernetes_secret.chef.metadata.0.name

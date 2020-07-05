@@ -7,7 +7,6 @@ resource "kubernetes_role" "chef" {
   rule {
     api_groups     = [""]
     resources      = ["secrets"]
-    resource_names = ["chef_creds"]
     verbs          = ["get", "create", "update", "patch"]
   }
 }
