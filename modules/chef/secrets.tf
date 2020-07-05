@@ -14,6 +14,7 @@ resource "kubernetes_secret" "chef"  {
     POSTGRES_PASSWORD = random_password.db_pass.result
     CHEF_FQDN = local.chef_name
     POSTGRES_FQDN = local.db_name
+    ES_FQDN = local.es_name
   }
 }
 

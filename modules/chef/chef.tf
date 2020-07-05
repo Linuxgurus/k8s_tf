@@ -20,10 +20,12 @@ resource "kubernetes_deployment" "chef" {
     template {
       metadata { labels = local.chef_labels }
       spec {
+      automount_service_account_token = true
         container {
           name = local.chef_name
           image = "registry:5000/chef"
           port { container_port = local.chef_port }
+
           env_from {
             secret_ref {
               name = kubernetes_secret.chef.metadata.0.name
