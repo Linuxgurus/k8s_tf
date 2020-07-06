@@ -10,9 +10,10 @@ using_the_prototype.md for details there
 1. Self-Hosted Docker-Registry
 2. Jenkins
 3. certificate manager, with local CA service
+4. openvpn 
+5. chef (for master and worker nodes)
 
 ## Coming features
-4. openvpn -inside- the k8s cluster
 5. confluence
 6. wordpress
 7. gitlab?
@@ -29,7 +30,7 @@ using_the_prototype.md for details there
    { k8s = "/$GOPATH/bin/terraform-provider-k8s" }
 ```
 
-2. You need to make a certficate and place them in ~/.ssh :
+2. You need to make a certficate and place them in ~/.ssl :
 ```
     export MYCN="linuxguru.net"
     mkdir ~/.ssl && cd ~/.ssl openssl genrsa -out ca.key 2048
@@ -54,18 +55,9 @@ tf apply # a second time because of
    using certs typically have to be deleted so that a new pod can come up with
    the new certs
 
-## Deployments
-
-1. The Registry and Jenkins stacks rely on ReadWwriteOnce volumes from openebs.
-   old deployment has a , because the This prevents deployment rollovers,
-   because the new deployment can't get the volume being held by the old
-   deployment. So far, I am dealing with that with "kubectl delete deployment
-   xxxxx; tf apply" 
-
 ## Jenkins
 
 1. Jenkins has a new  Configuration as Code that happily blows away any manual
    changes to the Jenkins stack. I'm still trying to figure out how to deal
    with that properly in a  tf+helm world.
 
-2. 
