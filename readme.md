@@ -42,6 +42,7 @@ using_the_prototype.md for details there
 tf apply
 tf apply # a second time because of
          # https://github.com/banzaicloud/terraform-provider-k8s/issues/47
+```
 
 4. Enjoy!
 
