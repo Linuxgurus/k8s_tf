@@ -20,11 +20,16 @@ resource "kubernetes_deployment" "postgres" {
     template {
       metadata { labels = local.db_labels }
       spec {
+
         container {
           name = local.db_name
           image = "postgres:9"
           port {
             container_port = local.pg_port
+          }
+          env {
+            name = "PGDATA"
+            value = "/var/lib/postgresql/data/pgdata"
           }
 
           env_from {
@@ -35,7 +40,7 @@ resource "kubernetes_deployment" "postgres" {
           }
           volume_mount {
             name = "pgdata"
-            mount_path = "/var/lib/postgresql"
+            mount_path = "/var/lib/postgresql/data"
           }
         }
         volume {
