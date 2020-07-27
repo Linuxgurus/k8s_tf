@@ -63,3 +63,9 @@ module "chef" {
   domains = [ "chef", "chef.int.linuxguru.net" ]
   registry_auth = module.registry.auth
 }
+
+module "ldap" {
+  source = "./modules/ldap"
+  cert_issuer = module.cert_manager.issuer
+  domains = [ "ldap", "ldap.int.linuxguru.net" ]
+}

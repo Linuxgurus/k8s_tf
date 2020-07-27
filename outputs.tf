@@ -30,3 +30,10 @@ output "chef_lb" {
   value = module.chef.lb
 }
 
+output "ldap_lb" {
+  value = module.ldap.lb
+}
+
+output "ldap_admin_pass" {
+  value = module.ldap.passwords
+}
