@@ -14,6 +14,12 @@ resource "helm_release" "release" {
   name  = var.release_name
   chart = "stable/openldap"
   namespace = var.namespace
+  values = [
+    templatefile("${path.module}/settings.yaml.tpl", {
+      org=var.ldap_org
+      domain=var.ldap_domain
+    })
+  ]
 
   set {
     name = "persistence.storageClass"
@@ -33,12 +39,6 @@ resource "helm_release" "release" {
   set {
     name = "tls.secret"
     value = module.ssl_cert.secret
-  }
-
-  set {
-    name = "env.LDAP_TLS_VERIFY_CLIENT"
-    value = "try"
-    }
   }
 
 }
